@@ -47,7 +47,7 @@ Create a `.env` file with the following content:
 PORT=3000
 
 DB_HOST=localhost
-DB_PORT=5432
+DB_PORT=your_database_port
 DB_USER=postgres
 DB_PASSWORD=your_password
 DB_NAME=crud_db
