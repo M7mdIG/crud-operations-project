@@ -1,108 +1,158 @@
-# CRUD Operations API (Node.js + Express + PostgreSQL)
+# User-Device Assignment API (Node.js + TypeScript + PostgreSQL)
 
-A simple RESTful API built with Node.js, Express, and PostgreSQL.  
-It supports Create, Read, Update, and Delete (CRUD) operations on a `records` table, and is tested using Postman.
+A modular backend API built with **Express**, **TypeORM**, and **PostgreSQL**, supporting CRUD operations for **Users**, **Devices**, and their **Assignments**. Includes Swagger documentation for easy testing and integration.
 
 ---
 
 ## 🚀 Features
 
-- Node.js + Express server
-- PostgreSQL database with connection pooling
-- Environment variable configuration using `.env`
-- Full CRUD support:
-  - `POST /api/records` – create a new record
-  - `GET /api/records` – retrieve all records
-  - `GET /api/records/:id` – retrieve one record by ID
-  - `PUT /api/records/:id` – update a record
-  - `DELETE /api/records/:id` – delete a record
+- TypeScript-based Express server
+- PostgreSQL integration via TypeORM
+- Full CRUD for:
+  - Users
+  - Devices
+  - User-Device Assignments (many-to-many)
+- Global error handling
+- Swagger UI for interactive API documentation
+- Environment-based configuration via `.env`
 
 ---
 
 ## 🧱 Tech Stack
 
-- **Backend**: Node.js, Express
+- **Backend**: Node.js, Express, TypeScript
+- **ORM**: TypeORM
 - **Database**: PostgreSQL
-- **Tools**: pg (node-postgres), dotenv, nodemon
-- **Testing**: Postman
+- **Docs**: Swagger (OpenAPI 3.0)
+- **Tools**: ts-node-dev, dotenv
 
 ---
 
 ## ⚙️ Setup Instructions
 
 ### 1. Clone the repository
+
 ```bash
-git clone https://github.com/M7mdIG/crud-operations-project.git
-cd crud-operations-project
+git clone https://github.com/your-username/user-device-api.git
+cd user-device-api
 ```
 
 ### 2. Install dependencies
+
 ```bash
 npm install
 ```
 
 ### 3. Configure environment variables
-Create a `.env` file with the following content:
+
+Create a `.env` file:
+
 ```env
 PORT=3000
 
 DB_HOST=localhost
-DB_PORT=your_database_port
+DB_PORT=5432
 DB_USER=postgres
-DB_PASSWORD=your_password
-DB_NAME=crud_db
+DB_PASSWORD=yourpassword
+DB_NAME=device_db
 ```
 
-### 4. Create the database and table
-Connect to PostgreSQL (via pgAdmin or psql) and run:
+### 4. Start PostgreSQL and create database
 
 ```sql
-CREATE DATABASE crud_db;
-
-CREATE TABLE records (
-  id SERIAL PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  description TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+CREATE DATABASE device_db;
 ```
 
-### 5. Start the server
+### 5. Run the development server
+
 ```bash
-npm run dev    # uses nodemon
-# OR
-npm start      # uses node
+npm run dev
+```
+
+Or to build and run production:
+
+```bash
+npm run build
+npm start
 ```
 
 ---
 
-## 🧪 Test the API using Postman
+## 📘 API Documentation
 
-| Method | Endpoint              | Description            |
-|--------|------------------------|------------------------|
-| POST   | `/api/records`         | Create a new record    |
-| GET    | `/api/records`         | Get all records        |
-| GET    | `/api/records/:id`     | Get record by ID       |
-| PUT    | `/api/records/:id`     | Update record by ID    |
-| DELETE | `/api/records/:id`     | Delete record by ID    |
+Once the server is running, access Swagger UI at:
+
+```
+http://localhost:3000/api-docs
+```
+
+---
+
+## 🔌 Available Endpoints
+
+### Users
+
+| Method | Endpoint        | Description           |
+|--------|------------------|-----------------------|
+| POST   | `/api/users`     | Create a user         |
+| GET    | `/api/users`     | Get all users         |
+| GET    | `/api/users/:id` | Get user by ID        |
+| PUT    | `/api/users/:id` | Update a user         |
+| DELETE | `/api/users/:id` | Delete a user         |
+
+### Devices
+
+| Method | Endpoint           | Description            |
+|--------|---------------------|------------------------|
+| POST   | `/api/devices`      | Create a device        |
+| GET    | `/api/devices`      | Get all devices        |
+| GET    | `/api/devices/:id`  | Get device by ID       |
+| PUT    | `/api/devices/:id`  | Update a device        |
+| DELETE | `/api/devices/:id`  | Delete a device        |
+
+### Assignments
+
+| Method | Endpoint                | Description                    |
+|--------|--------------------------|--------------------------------|
+| POST   | `/api/assignments`       | Assign a user to a device      |
+| PUT    | `/api/assignments/:id`   | Update assignment access level |
+| DELETE | `/api/assignments/:id`   | Remove an assignment           |
 
 ---
 
 ## 📂 Project Structure
 
 ```
-├── server.js
-├── db.js
-├── .env
-├── routes/
-│   └── recordRoutes.js
+src/
+├── app.ts                  # Main server entry
+├── config/
+│   └── data-source.ts      # TypeORM DB config
 ├── controllers/
-│   └── recordController.js
-└── package.json
+│   ├── user.controller.ts
+│   ├── device.controller.ts
+│   └── assignment.controller.ts
+├── entities/
+│   ├── User.ts
+│   ├── Device.ts
+│   └── DeviceAssignment.ts
+├── middleware/
+│   └── errorHandler.ts
+├── routes/
+│   ├── user.routes.ts
+│   ├── device.routes.ts
+│   └── assignment.routes.ts
+├── swagger.ts              # Swagger config
+└── ...
 ```
+
+---
+
+## 🧪 Testing
+
+Use [Postman](https://www.postman.com/) or Swagger UI to test endpoints. Swagger gives live Try-It-Out buttons.
 
 ---
 
 ## 📄 License
 
-This project is open for educational and demo purposes. No license is currently applied.
+This project is for educational/demo purposes. Feel free to fork or contribute.
