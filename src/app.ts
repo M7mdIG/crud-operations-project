@@ -51,7 +51,7 @@ AppDataSource.initialize()
     // Start the server
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
-      console.log(`[-] Server is listening on http://localhost:${PORT}`);
+      console.log(`[-] Server is listening on http://localhost:${PORT}, to check swagger documentation go to http://localhost:${PORT}/api-docs`);
     });
   })
   .catch((err) => {

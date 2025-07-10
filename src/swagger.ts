@@ -22,6 +22,11 @@ export const swaggerSpec = swaggerJSDoc({
         description: "Assign or unassign users to devices",
       },
     ],
+    servers: [
+      {
+        url: "http://localhost:3000/api", // sets /api as prefix
+      },
+    ],
   },
   apis: ["./src/routes/*.ts"], // Scan all route files for JSDoc @swagger comments
 });
